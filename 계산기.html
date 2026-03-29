@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>calculator</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            background-color: #f9f9f9;
+        }
+        td {
+            padding: 10px 15px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        td:hover {
+            background-color: #eee;
+        }
+        input {
+            text-align: right;
+            border: none;
+            width: 100%;
+            box-sizing: border-box;
+            font-size: 1.2rem;
+            padding: 5px;
+            background-color: white;
+        }
+        input:focus {
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+    <table border="1">
+        <tr>
+            <td colspan="4">
+                <input type="text" id="display" readonly>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <input type="text" id="result" readonly>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" onclick="reset()">AC</td>
+            <td onclick="add('/')">/</td>
+        </tr>
+        <tr>
+            <td onclick="add(7)">7</td>
+            <td onclick="add(8)">8</td>
+            <td onclick="add(9)">9</td>
+            <td onclick="add('*')">*</td>
+        </tr>
+        <tr>
+            <td onclick="add(4)">4</td>
+            <td onclick="add(5)">5</td>
+            <td onclick="add(6)">6</td>
+            <td onclick="add('-')">-</td>
+        </tr>
+        <tr>
+            <td onclick="add(1)">1</td>
+            <td onclick="add(2)">2</td>
+            <td onclick="add(3)">3</td>
+            <td onclick="add('+')">+</td>
+        </tr>
+        <tr>
+            <td colspan="2" onclick="add(0)">0</td>
+            <td onclick="add('.')">.</td>
+            <td onclick="calculate()">=</td>
+        </tr>
+    </table>
+
+    <script>
+        // 숫나나 연산자를 추가하는 함수
+        function add(char) {
+            var display = document.getElementById('display');
+            display.value = display.value + char;
+        }
+
+        // 초기화(AC) 함수
+        function reset() {
+            document.getElementById('display').value = "";
+            document.getElementById('result').value = "";
+        }
+
+        // 계산 실행 함수 (대괄호 [ ]를 중괄호 { }로 수정함)
+        function calculate() {
+            var display = document.getElementById('display');
+            try {
+                // eval은 수식을 계산해주는 편리한 함수예요
+                var res = eval(display.value);
+                document.getElementById('result').value = res;
+            } catch (e) {
+                // 수식이 잘못되었을 때(예: 7++5) 에러 표시
+                document.getElementById('result').value = "Error";
+            }
+        }
+    </script>
+</body>
+</html>
